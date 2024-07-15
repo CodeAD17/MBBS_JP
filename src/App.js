@@ -19,7 +19,7 @@ export class App extends Component {
 
           <section id="home" className="hero" style={{background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover"}}>
             <h1 className="fade-in-up">Mama Bhanje Barber Shop</h1>
-            <p className="fade-in-up">Experience the pinnacle of grooming excellence<br /> By The Best Barber Shop From last 2 Years<br /> in Para Rajajipuram Lucknow</p>
+            <p className="fade-in-up">Experience the pinnacle of grooming excellence</p>
             <p className="fade-in-up">GOOGLE RATING OF: &#11088;4.7 </p>
             <a href="#booking" className="btn fade-in-up">Book Your Session</a>
           </section>
@@ -49,7 +49,7 @@ export class App extends Component {
               </div>
             </div>
           
-            <div className="service-details" style={{marginTop: "3rem", backgroundColor: "var(--secondary-color)", padding: "2rem", borderRadius: "10px"}}>
+            {/* <div className="service-details" style={{marginTop: "3rem", backgroundColor: "var(--secondary-color)", padding: "2rem", borderRadius: "10px"}}>
               <h3 style={{color: "var(--accent-color)", marginBottom: "1rem"}}>Elevate Your Grooming Experience</h3>
               <p>At Elite Cuts, we offer more than just haircuts. Our comprehensive range of services is designed to cater to every aspect of men's grooming:</p>
               <ul style={{listStyleType: "none", paddingLeft: 0}}>
@@ -70,7 +70,7 @@ export class App extends Component {
                 </li>
               </ul>
               <p style={{marginTop: "1rem"}}>Each service is performed by our expert stylists using premium products and techniques. Experience the Elite Cuts difference today!</p>
-            </div>
+            </div> */}
           </section>
 
           <section id="booking" className="container">
