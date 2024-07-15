@@ -7,7 +7,6 @@ export class App extends Component {
         <div>
           <header>
             <nav className="container">
-              <div className="logo">MBBS JP</div>
               <div className="nav-links">
                 <a href="#home">Home</a>
                 <a href="#services">Services</a>
