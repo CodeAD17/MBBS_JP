@@ -61,7 +61,8 @@ nav {
 }
 .hero {
   background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YmFyYmVyc2hvcHx8fHx8fDE2ODU3MjEyNjI&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080') no-repeat center center/cover;
-  height: 100vh;
+  height: 80vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,6 +123,7 @@ nav {
 }
 .services {
   padding: 4rem 0;
+  
 }
 .services h2 {
   text-align: center;
@@ -160,7 +162,7 @@ nav {
   margin-bottom: 2rem;
 }
 .testimonial-slider {
-  overflow: hidden;
+  overflow: scroll;
   height: 50vh;
   width: 100vw;
 }
