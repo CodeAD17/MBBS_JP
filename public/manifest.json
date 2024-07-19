@@ -3,17 +3,17 @@
   "name": "MBBS JP",
   "icons": [
     {
-      "src": "hs.png",
+      "src": "hs1.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "hs.png",
+      "src": "hs1.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "hs.png",
+      "src": "hs1.png",
       "type": "image/png",
       "sizes": "512x512"
     }
