@@ -20,7 +20,7 @@ export default function Appoint() {
 
   const fetchLatestAppointment = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/appointments');
+      const response = await axios.get('https://api-for-mbbs-jp.vercel.app/api/appointments');
       const appointments = response.data;
       if (appointments.length > 0) {
         const newLatestAppointment = appointments[appointments.length - 1];
@@ -38,7 +38,7 @@ export default function Appoint() {
 
   const updateAppointmentStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:5000/api/appointments/${id}`, { status });
+      await axios.patch(`https://api-for-mbbs-jp.vercel.app/api/appointments/${id}`, { status });
       fetchLatestAppointment();
     } catch (error) {
       console.error('Error updating appointment:', error);

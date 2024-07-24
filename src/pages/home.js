@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import './home.css';
 import {  Outlet } from 'react-router-dom';
-
-
-
-
- 
-  
-
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -22,6 +15,12 @@ export default function Home() {
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isToday, setIsToday] = useState(false);
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setIsToday(formData.date === today);
+  }, [formData.date]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +46,7 @@ export default function Home() {
         date: formData.date ? new Date(formData.date).toISOString() : null
       };
   
-      const response = await axios.post('http://localhost:5000/api/appointments', dataToSend);
+      const response = await axios.post('https://api-for-mbbs-jp.vercel.app/api/appointments', dataToSend);
       console.log('Appointment booked:', response.data);
       setSuccess('Appointment booked successfully!');
       setFormData({
@@ -66,8 +65,6 @@ export default function Home() {
   return (
     <div>
            
-
-
         <Outlet/>
           <section id="home" className="hero">
             <div className="hero-content">
@@ -164,10 +161,10 @@ export default function Home() {
           name="time"
           value={formData.time}
           onChange={handleChange}
-          required />
+          required
+          disabled={isToday} />
               </div>
-              {/* <NavLink to='appoint' type="submit" className="btn" >Book Now</NavLink> */}
-            <a href="/appoint" type='submit' className='btn' onClick={handleSubmit}>Book Now</a>
+              <a href="/appoint" type='submit' className='btn' onClick={handleSubmit}>Book Now</a>
              
             </form>
           </section>
