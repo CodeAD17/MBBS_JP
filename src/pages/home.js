@@ -46,7 +46,7 @@ export default function Home() {
         date: formData.date ? new Date(formData.date).toISOString() : null
       };
   
-      const response = await axios.post('https://api-for-mbbs-jp.vercel.app/api/appointments', dataToSend);
+      const response = await axios.post('https://api-for-mbbsjp.vercel.app/api/appointments', dataToSend);
       console.log('Appointment booked:', response.data);
       setSuccess('Appointment booked successfully!');
       setFormData({
