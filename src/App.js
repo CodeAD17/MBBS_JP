@@ -11,17 +11,7 @@ export class App extends Component {
       return (
         <BrowserRouter>
           <div>
-          <header>
-            <nav className="container">
-              <div className="nav-links">
-                
-                <a href="/">Home</a>
-                <a href="/#gallery">Gallery</a>
-                <a href="/#services">Services</a>
-                <a href="/#booking">Book Now</a>
-              </div>
-            </nav>
-          </header>
+         
           <Routes>
             
           <Route path='/' element={<Main/>}/>

@@ -48,7 +48,7 @@
   padding: 0 20px;
 }
 
-header1 {
+header {
   position: fixed;
   top: 0;
   left: 0;
@@ -60,7 +60,11 @@ header1 {
   padding: 15px 0;
   z-index: 1000;
 }
-
+.hero h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #ffd700;
+}
 nav {
   display: flex;
   justify-content: space-between;
@@ -68,8 +72,16 @@ nav {
 }
 
 .logo {
-  font-size: 24px;
+  font-size: 14px;
   font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+gap: 20px;
+  
+  
+
 }
 
 .menu-toggle {
@@ -78,29 +90,21 @@ nav {
 }
 
 .nav-links {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  display: none;
-  flex-direction: column;
-  padding: 20px;
+ 
 }
 
 .nav-links.active {
   display: flex;
 }
 
-.nav-links a {
+.logo a {
   color: var(--text-color);
   text-decoration: none;
   padding: 10px 0;
   transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
+.logo a:hover {
   color: var(--secondary-color);
 }
 
@@ -113,15 +117,23 @@ main {
   padding: 50px 0;
 }
 
-h1 {
-  font-size: 32px;
+h3 {
+  font-size: 20px;
   margin-bottom: 20px;
+  color: #ffd700;
 }
+h2 {
+ font-size: 22px;
+  margin-bottom: 20px;
+  color: #ffd700;
+}
+
 
 .cta-button {
   display: inline-block;
+  margin-top: 15px;
   background: var(--secondary-color);
-  color: var(--text-color);
+  color: black;
   padding: 12px 24px;
   border-radius: 30px;
   text-decoration: none;
@@ -212,19 +224,20 @@ h1 {
   padding: 10px;
   border: var(--glass-border);
   background: rgba(255, 255, 255, 0.1);
-  color: var(--text-color);
+  color: black;
   border-radius: 5px;
 }
 
 .form-group input[type="submit"] {
   background: var(--secondary-color);
-  color: var(--text-color);
+  color: black;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .form-group input[type="submit"]:hover {
   background-color: #c0392b;
+  color: white;
 }
 
 footer {

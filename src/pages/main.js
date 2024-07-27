@@ -73,29 +73,27 @@ export function Main() {
 
         <header>
           <div className="container">
-            <nav>
-              <div className="logo">BarberChic</div>
-              <div className="menu-toggle" id="menu-toggle">
-                <i className="fas fa-bars"></i>
+           
+              <div className="logo">
+                
+                <a href="/">Home</a>
+                <a href="/#gallery">Gallery</a>
+                <a href="/#services">Services</a>
+                <a href="/#booking">Book Now</a>
               </div>
-            </nav>
+             
+            
           </div>
         </header>
 
-        <div className="nav-links" id="nav-links">
-          <a href="#services">Services</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#booking">Book Now</a>
-          <a href="#contact">Contact</a>
-        </div>
 
         <main>
           <section className="hero">
             <div className="container">
-              <h1>Modern Styling for the Modern Man</h1>
-              <p>Experience the art of barbering at its finest</p>
+              <h1>Welcome to MBBS JP</h1>
+              <p>Experience the art of grooming like never before</p>
               <a href="#booking" className="cta-button">Book Your Cut</a>
-            </div>
+                  </div>
           </section>
 
           <section id="services" className="services container">

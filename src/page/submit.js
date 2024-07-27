@@ -29,6 +29,8 @@ export default function Submit() {
           // Notify here (e.g., show a notification or play a sound)
           console.log('New appointment received!');
         }
+      } else {
+        setLatestAppointment(null);
       }
     } catch (error) {
       console.error('Error fetching appointments:', error);
@@ -37,11 +39,16 @@ export default function Submit() {
 
   const deleteAppointment = async (id) => {
     try {
-      await axios.delete(`https://api-for-mbbsjp.vercel.app/api/appointments/${id}`);
-      setLatestAppointment(null);
-      fetchLatestAppointment();
+      const response = await axios.delete(`https://api-for-mbbsjp.vercel.app/api/appointments/${id}`);
+      if (response.status === 200) {
+        setLatestAppointment(null);
+        fetchLatestAppointment();
+        // You can add a notification here to inform the user that the appointment was cancelled
+        alert('Appointment cancelled successfully');
+      }
     } catch (error) {
       console.error('Error deleting appointment:', error);
+      alert('Failed to cancel appointment. Please try again.');
     }
   };
 
@@ -78,7 +85,7 @@ export default function Submit() {
             <p><strong>Service:</strong> <span id="service">{latestAppointment.services.join(', ')}</span></p>
           
                
-                <button onClick={() => deleteAppointment(latestAppointment._id)} className='button' style={{backgroundColor: "#ff4136"}}>Cancel</button>
+            <button onClick={() => deleteAppointment(latestAppointment._id)} className='button' style={{backgroundColor: "#ff4136"}}>Cancel</button>
           </div>
         )}
         <div className="contact-info1">
