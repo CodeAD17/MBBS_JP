@@ -66,6 +66,14 @@ export default function Home() {
     <div>
            
         <Outlet/>
+        <div class="parallax-container">
+        <div class="parallax-layer parallax-background">
+            <video id="barber-bg" autoplay loop muted>
+                <source src="https://v1.pinimg.com/videos/iht/720p/94/db/08/94db08af712bf6e7f9f701c67462c24a.mp4" type="video/mp4"/>
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="parallax-layer content">
           <section id="home" className="hero">
             <div className="hero-content">
               <h1 id='mbbs'>Mama Bhanje Barber Shop</h1>
@@ -73,6 +81,8 @@ export default function Home() {
               <a href="#booking" className="btn">Book Appointment</a>
             </div>
           </section>
+          </div>
+          </div>
 
           <section id="gallery" className="container">
             <h2>Our Work</h2>
@@ -139,7 +149,7 @@ export default function Home() {
           onChange={handleChange}
           required>
                   <option value="">Select a service</option>
-                  <option value="precision-cut">Hair Cut</option>
+                  <option value="Hair-cut">Hair Cut</option>
                   <option value="beard-trim">Beard Trim</option>
                   <option value="hair-coloring">Hair Coloring</option>
                   <option value="hot-towel-shave">Shave</option>

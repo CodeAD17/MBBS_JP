@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Router, Route, Link, Routes, NavLink } from 'react-router-dom';
-import Appoint from './pages/appoint';
-import Home from './pages/home';
+
+import Main from './pages/main';
+
+import Submit from './page/submit';
 
 
 export class App extends Component {
@@ -9,7 +11,7 @@ export class App extends Component {
       return (
         <BrowserRouter>
           <div>
-          <header1>
+          <header>
             <nav className="container">
               <div className="nav-links">
                 
@@ -19,10 +21,11 @@ export class App extends Component {
                 <a href="/#booking">Book Now</a>
               </div>
             </nav>
-          </header1>
+          </header>
           <Routes>
-            <Route path='/appoint' element={<Appoint/>}/>
-            <Route path='/' element={<Home/>}/>
+            
+          <Route path='/' element={<Main/>}/>
+            <Route path='/appoint' element={<Submit/>}/>
           </Routes>
         </div>
         </BrowserRouter>

@@ -1,0 +1,97 @@
+import React, { Component, useState, useEffect } from 'react'
+import "./submit.css";
+import { Outlet, useLocation } from 'react-router-dom';
+import axios from 'axios';
+
+export default function Submit() {
+  const [latestAppointment, setLatestAppointment] = useState(null);
+  const [lastCustomerNo, setLastCustomerNo] = useState(null);
+
+  useEffect(() => {
+    fetchLatestAppointment();
+
+    const timer = setInterval(() => {
+      fetchLatestAppointment();
+    }, 10000); // 10 seconds in milliseconds
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const fetchLatestAppointment = async () => {
+    try {
+      const response = await axios.get('https://api-for-mbbsjp.vercel.app/api/appointments');
+      const appointments = response.data;
+      if (appointments.length > 0) {
+        const newLatestAppointment = appointments[appointments.length - 1];
+        if (newLatestAppointment.customerNo !== lastCustomerNo) {
+          setLatestAppointment(newLatestAppointment);
+          setLastCustomerNo(newLatestAppointment.customerNo);
+          // Notify here (e.g., show a notification or play a sound)
+          console.log('New appointment received!');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    }
+  };
+
+  const deleteAppointment = async (id) => {
+    try {
+      await axios.delete(`https://api-for-mbbsjp.vercel.app/api/appointments/${id}`);
+      setLatestAppointment(null);
+      fetchLatestAppointment();
+    } catch (error) {
+      console.error('Error deleting appointment:', error);
+    }
+  };
+
+  const location = useLocation();
+  const { name, phone, service, date, time } = location.state || {};
+
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(':');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    return `${formattedHours}:${minutes} ${ampm}`;
+  };
+
+  const handleCallCustomer = (phoneNo) => {
+    window.location.href = "tel:9862893337";
+  };
+
+  return (
+    <div>
+      <video autoPlay muted loop id="background-video1">
+        <source src="https://assets.mixkit.co/videos/43244/43244-360.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="overlayq"></div>
+      <div id="bbd">
+
+      <div className="container1">
+        <h1 id='head'>Appointment Confirmed</h1>
+        {latestAppointment && (
+          <div className="confirmation-details1">
+            <p><strong>Name:</strong> <span id="name">{latestAppointment.name}</span></p>
+            <p><strong>Date:</strong> <span id="date">{new Date(latestAppointment.date).toLocaleDateString()}</span></p>
+            <p><strong>Time:</strong> <span id="time">{formatTime(latestAppointment.time)}</span></p>
+            <p><strong>Service:</strong> <span id="service">{latestAppointment.services.join(', ')}</span></p>
+          
+               
+                <button onClick={() => deleteAppointment(latestAppointment._id)} className='button' style={{backgroundColor: "#ff4136"}}>Cancel</button>
+          </div>
+        )}
+        <div className="contact-info1">
+          <p>Need to make changes?</p>
+          <a href="tel:9862893337" className="button">Call Us</a>
+        </div>
+      </div>
+        <div className="social-links1">
+          <a href="https://facebook.com/barberchic"><i className="fab fa-facebook"></i></a>
+          <a href="https://instagram.com/barberchic"><i className="fab fa-instagram"></i></a>
+          <a href="https://twitter.com/barberchic"><i className="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  )
+}
