@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import "./submit.css";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Loader from './loader';
 
 export default function Submit() {
   const [latestAppointment, setLatestAppointment] = useState(null);
   const [lastCustomerNo, setLastCustomerNo] = useState(null);
   const [ongoingAppointment, setOngoingAppointment] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [cancelMessage, setCancelMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchLatestAppointment();
@@ -35,15 +39,23 @@ export default function Submit() {
       } else {
         setLatestAppointment(null);
       }
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching appointments:', error);
+      setIsLoading(false);
     }
   };
 
   const fetchOngoingAppointment = async () => {
     try {
-      const response = await axios.get('https://api-for-mbbsjp.vercel.app/api/appointments/ongoing');
-      setOngoingAppointment(response.data);
+      const response = await axios.get('https://api-for-mbbsjp.vercel.app/api/appointments');
+      const appointments = response.data;
+      if (appointments.length > 0) {
+        const oldestAppointment = appointments[0];
+        setOngoingAppointment(oldestAppointment);
+      } else {
+        setOngoingAppointment(null);
+      }
     } catch (error) {
       console.error('Error fetching ongoing appointment:', error);
     }
@@ -54,9 +66,10 @@ export default function Submit() {
       const response = await axios.delete(`https://api-for-mbbsjp.vercel.app/api/appointments/${id}`);
       if (response.status === 200) {
         setLatestAppointment(null);
-        fetchLatestAppointment();
-        // You can add a notification here to inform the user that the appointment was cancelled
-        alert('Appointment cancelled successfully');
+        setCancelMessage('Your booking canceled');
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
       }
     } catch (error) {
       console.error('Error deleting appointment:', error);
@@ -68,6 +81,7 @@ export default function Submit() {
   const { name, phone, service, date, time } = location.state || {};
 
   const formatTime = (time) => {
+    if (!time) return null;
     const [hours, minutes] = time.split(':');
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = hours % 12 || 12;
@@ -88,25 +102,37 @@ export default function Submit() {
       <div id="bbd">
         <div className="container1">
           <h1 id='head'>Appointment Confirmed</h1>
-          {latestAppointment && (
-            <div className="confirmation-details1">
-               <p><strong>Token No:</strong> {latestAppointment.customerNo}</p>
-              <p><strong>Name:</strong> <span id="name">{latestAppointment.name}</span></p>
-              <p><strong>Date:</strong> <span id="date">{new Date(latestAppointment.date).toLocaleDateString()}</span></p>
-              <p><strong>Time:</strong> <span id="time">{formatTime(latestAppointment.time)}</span></p>
-              <p><strong>Service:</strong> <span id="service">{latestAppointment.services.join(', ')}</span></p>
-              <button onClick={() => deleteAppointment(latestAppointment._id)} className='button' style={{backgroundColor: "#ff4136"}}>Cancel</button>
-            </div>
-          )}
-          {ongoingAppointment && (
-            <div className="ongoing-appointment">
-              <h2>Ongoing Appointment</h2>
-              <p><strong>Token No:</strong> {ongoingAppointment.customerNo}</p>
-            </div>
+          {isLoading ? (
+            <div className="loader"><Loader/></div>
+          ) : (
+            <>
+              {cancelMessage ? (
+                <div className="cancel-message">{cancelMessage}</div>
+              ) : (
+                latestAppointment && (
+                  <div className="confirmation-details1">
+                    <p><strong>Token No:</strong> {latestAppointment.customerNo}</p>
+                    <p><strong>Name:</strong> <span id="name">{latestAppointment.name}</span></p>
+                    <p><strong>Date:</strong> <span id="date">{new Date(latestAppointment.date).toLocaleDateString()}</span></p>
+                    <p><strong>Time:</strong> <span id="time">
+                      {formatTime(latestAppointment.time) ||  '2mins loading...'}
+                    </span></p>
+                    <p><strong>Service:</strong> <span id="service">{latestAppointment.services.join(', ')}</span></p>
+                    <button onClick={() => deleteAppointment(latestAppointment._id)} className='button' style={{backgroundColor: "#ff4136"}}>Cancel</button>
+                  </div>
+                )
+              )}
+              {ongoingAppointment && (
+                <div className="ongoing-appointment">
+                  <h2>Ongoing Appointment</h2>
+                  <p><strong>Token No:</strong> {ongoingAppointment.customerNo}</p>
+                </div>
+              )}
+            </>
           )}
           <div className="contact-info1">
             <p>Need to make changes?</p>
-            <a href="tel:9862893337" className="button">Call Us</a>
+            <a href="tel:7266008080" className="button">Call Us</a>
           </div>
         </div>
         <div className="social-links1">

@@ -224,8 +224,12 @@ h2 {
   padding: 10px;
   border: var(--glass-border);
   background: rgba(255, 255, 255, 0.1);
-  color: black;
+  color:var(--text-color);
   border-radius: 5px;
+}
+option{
+  background-color: black;
+  color: var(--text-color);
 }
 
 .form-group input[type="submit"] {

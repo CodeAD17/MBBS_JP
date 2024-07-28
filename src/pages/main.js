@@ -15,11 +15,28 @@ export function Main() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isToday, setIsToday] = useState(false);
+  const [ongoingAppointment, setOngoingAppointment] = useState([]);
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
     setIsToday(formData.date === today);
+    fetchOngoingAppointment();
   }, [formData.date]);
+
+  const fetchOngoingAppointment = async () => {
+    try {
+      const response = await axios.get('https://api-for-mbbsjp.vercel.app/api/appointments');
+      const appointments = response.data;
+      if (appointments.length > 0) {
+        const oldestAppointment = appointments[0];
+        setOngoingAppointment(oldestAppointment);
+      } else {
+        setOngoingAppointment(null);
+      }
+    } catch (error) {
+      console.error('Error fetching ongoing appointment:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,6 +72,7 @@ export function Main() {
         date: '',
         time: '',
       });
+      fetchOngoingAppointment();
     } catch (error) {
       console.error('Error booking appointment:', error.response?.data || error.message);
       setError(error.response?.data?.error || 'An error occurred while booking the appointment.');
@@ -93,7 +111,7 @@ export function Main() {
               <h1>Welcome to MBBS JP</h1>
               <p>Experience the art of grooming like never before</p>
               <a href="#booking" className="cta-button">Book Your Cut</a>
-                  </div>
+            </div>
           </section>
 
           <section id="services" className="services container">
@@ -161,14 +179,29 @@ export function Main() {
                 <label htmlFor="date">Date</label>
                 <input type="date" id="date" name="date" value={formData.date} onChange={handleChange} required />
               </div>
-              <div className="form-group">
-                <label htmlFor="time">Time</label>
-                <input type="time" id="time" name="time" value={formData.time} onChange={handleChange} required disabled={isToday} />
-              </div>
+              {!isToday && (
+                <div className="form-group">
+                  <label htmlFor="time">Time</label>
+                  <input type="time" id="time" name="time" value={formData.time} onChange={handleChange} required />
+                </div>
+              )}
               <div className="form-group">
                 <input type="submit" value="Book Now" />
               </div>
+            <ul>
+            {ongoingAppointment && (
+                <div className="ongoing-appointment">
+                 <h2>Ongoing Appointments</h2>
+                  <p><strong>Token No:</strong> {ongoingAppointment.customerNo}</p>
+                  <a href="tel:7266008080" className="button">Call Us</a>
+                </div>
+              )}
+            </ul>
             </form>
+          </section>
+
+          <section id="ongoing-appointments" className="container">
+            
           </section>
         </main>
       </div>
